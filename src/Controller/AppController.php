@@ -16,6 +16,8 @@ class AppController extends AbstractController
     public function index($a = 1)
     {
 
+        phpinfo();
+
         if($a) {
             print_r(1);
         }
