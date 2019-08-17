@@ -1,0 +1,83 @@
+<?php
+
+namespace App\Entity;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity(repositoryClass="App\Repository\SeasonRepository")
+ */
+class Season
+{
+    /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="string", length=10)
+     */
+    private $season;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Queue", mappedBy="season")
+     */
+    private $queues;
+
+    public function __construct()
+    {
+        $this->queues = new ArrayCollection();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getSeason(): ?string
+    {
+        return $this->season;
+    }
+
+    public function setSeason(string $season): self
+    {
+        $this->season = $season;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Queue[]
+     */
+    public function getQueues(): Collection
+    {
+        return $this->queues;
+    }
+
+    public function addQueue(Queue $queue): self
+    {
+        if (!$this->queues->contains($queue)) {
+            $this->queues[] = $queue;
+            $queue->setSeason($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQueue(Queue $queue): self
+    {
+        if ($this->queues->contains($queue)) {
+            $this->queues->removeElement($queue);
+            // set the owning side to null (unless already changed)
+            if ($queue->getSeason() === $this) {
+                $queue->setSeason(null);
+            }
+        }
+
+        return $this;
+    }
+}

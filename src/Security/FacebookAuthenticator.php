@@ -122,7 +122,7 @@ class FacebookAuthenticator extends SocialAuthenticator
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-        $targetUrl = $this->router->generate('app_login');
+        $targetUrl = $this->router->generate('app');
 
         return new RedirectResponse($targetUrl);
     }

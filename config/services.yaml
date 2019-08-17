@@ -25,3 +25,15 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    sonata.admin.maker:
+        class: Sonata\AdminBundle\Maker\AdminMaker
+        arguments: ['%kernel.project_dir%', ['@sonata.admin.manager.orm']]
+        tags:
+            - { name: maker.command }
+
+    admin.season:
+        class: App\Admin\SeasonAdmin
+        arguments: [~, App\Entity\Season, App\Controller\SeasonAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Season }
+        public: true

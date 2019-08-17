@@ -3,10 +3,31 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
+            <link rel="stylesheet" href="{{ asset('css/bootstrap-social.css') }}" />
+            <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+            <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/bebas" type="text/css"/>
+        {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        <div class="container-fluid">
+            {% include('header.html.twig') %}
+
+            <div class="row">
+                {% include('login.html.twig') %}
+                {% block body %}
+                {% endblock %}
+            </div>
+
+            {% include('footer.html.twig') %}
+
+            {% block javascripts %}
+                <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
+                <script src="{{ asset('js/popper.min.js') }}"></script>
+                <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+            {% endblock %}
+
+        </div>
     </body>
 </html>
