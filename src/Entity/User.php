@@ -37,7 +37,7 @@ class User implements UserInterface
 
     /**
      * @var string
-     * @ORM\Column(name="user_name" type="string")
+     * @ORM\Column(name="user_name", type="string")
      */
     private $userName;
 

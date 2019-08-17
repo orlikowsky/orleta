@@ -1,0 +1,117 @@
+@font-face {
+    font-family: 'BebasNeueLight';
+    src: url('/public/BebasNeue-Light.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BebasNeue';
+    src: url('/public/BebasNeue-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+body {
+    font-family: 'BebasNeueRegular';
+}
+
+.header {
+    font-size: 50px;
+}
+
+.menu {
+    background: #ed3731;
+    min-height: 60px;
+}
+
+.loginBar {
+    background-image: linear-gradient(#ed3731, #FFFF);
+}
+
+.bodyMiddle {
+    min-height: 1000px;
+}
+
+.loginLabel {
+    font-size: 20px;
+    color: #ffcc01;
+}
+
+.footer {
+    font-size: 20px;
+    color: #ffcc01;
+    min-height: 200px;
+    border-top: #dfdfdf solid 1px;
+}
+
+.loginButton {
+    line-height: 1.0;
+}
+
+
+@media screen and  (min-width: 768px) and (max-width: 992px) {
+    .logo {
+        display: none;
+    }
+
+    .townLogosBig {
+        display: none;
+    }
+}
+@media screen and  (min-width: 992px) and (max-width: 1366px) {
+    .townLogosBig {
+        display: none;
+    }
+    .logo {
+        display: none;
+    }
+}
+@media screen and  (min-width: 1366px) and (max-width: 4920px) {
+    .townLogosSmall {
+        display: none;
+    }
+
+    .logoSmall {
+        display: none;
+    }
+}
+
+@media all and (min-width: 1024px) and (max-width: 1280px) {
+    .townLogosBig {
+        display: none;
+    }
+    .logo {
+        display: none;
+    }
+}
+
+@media all and (min-width: 768px) and (max-width: 1024px) {
+    .townLogosBig {
+        display: none;
+    }
+}
+
+@media all and (min-width: 480px) and (max-width: 768px) {
+    .logo {
+        display: none;
+    }
+    .townLogosBig {
+        display: none;
+    }
+    .socialIcons {
+        display: none;
+    }
+}
+
+@media all and (max-width: 480px) {
+    .logo {
+        display: none;
+        position: unset;
+    }
+    .townLogosBig {
+        display: none;
+    }
+    .socialIcons {
+        display: none;
+    }
+}

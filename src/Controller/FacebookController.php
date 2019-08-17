@@ -2,29 +2,26 @@
 
 namespace App\Controller;
 
-use App\Security\FacebookAuthenticator;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\Security\Core\User\UserProviderInterface;
+use \Symfony\Component\HttpFoundation\RedirectResponse;
 
-class FacebookController extends AbstractController
+class FacebookController extends Controller
 {
     /**
      * Link to this controller to start the "connect" process
-     * @param ClientRegistry $clientRegistry
      *
      * @Route("/connect/facebook", name="connect_facebook_start")
-     *
+     * @param ClientRegistry $clientRegistry
      * @return RedirectResponse
      */
     public function connectAction(ClientRegistry $clientRegistry)
     {
         return $clientRegistry
-            ->getClient('facebook')
+            ->getClient('facebook') // key used in config/packages/knpu_oauth2_client.yaml
             ->redirect([
                 'public_profile', 'email' // the scopes you want to access
             ])
@@ -36,19 +33,13 @@ class FacebookController extends AbstractController
      * because this is the "redirect_route" you configured
      * in config/packages/knpu_oauth2_client.yaml
      *
+     * @Route("/connect/facebook/check", name="connect_facebook_check")
+     *
      * @param Request $request
      * @param ClientRegistry $clientRegistry
-     *
-     * @Route("/connect/facebook/check", name="connect_facebook_check")
-     * @return RedirectResponse
      */
-    public function connectCheckAction(Request $request, ClientRegistry $clientRegistry, FacebookAuthenticator $facebookAuthenticator, UserProviderInterface $userProvider)
+    public function connectCheckAction(Request $request, ClientRegistry $clientRegistry)
     {
-        if($facebookAuthenticator->supports($request)) {
-            $credentials = $facebookAuthenticator->getCredentials($request);
-            $facebookAuthenticator->getUser($credentials, $userProvider);
-        }
 
-        return $this->redirectToRoute('app_login');
     }
 }

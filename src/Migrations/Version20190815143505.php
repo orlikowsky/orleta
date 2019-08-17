@@ -27,7 +27,8 @@ final class Version20190815143505 extends AbstractMigration
                                 email VARCHAR(180) NOT NULL,
                                 roles JSON NOT NULL,
                                 password VARCHAR(255) NOT NULL,
-                                facebook_id INT NULL,
+                                facebook_id BIGINT NULL,
+                                user_name VARCHAR (255) NULL,
                                 UNIQUE INDEX UNIQ_8D93D649E7927C74 (email),
                                 PRIMARY KEY(id))
                                 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
@@ -42,6 +43,5 @@ final class Version20190815143505 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('DROP TABLE user');
-        $this->addSql('ALTER TABLE user DROP facebook_id');
     }
 }

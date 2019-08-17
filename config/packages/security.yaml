@@ -20,6 +20,8 @@ security:
             guard:
                 authenticators:
                     - App\Security\AppAuthenticator
+                    - App\Security\FacebookAuthenticator
+                entry_point: App\Security\AppAuthenticator
 
             logout:
                 path: app_logout
