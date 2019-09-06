@@ -19,7 +19,7 @@ class Season
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=10)
+     * @ORM\Column(name="season", type="string", length=10)
      */
     private $season;
 
@@ -27,6 +27,11 @@ class Season
      * @ORM\OneToMany(targetEntity="App\Entity\Queue", mappedBy="season")
      */
     private $queues;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Table", mappedBy="season", cascade={"persist", "remove"})
+     */
+    private $leagueTable;
 
     public function __construct()
     {
@@ -76,6 +81,23 @@ class Season
             if ($queue->getSeason() === $this) {
                 $queue->setSeason(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getLeagueTable(): ?Table
+    {
+        return $this->leagueTable;
+    }
+
+    public function setLeagueTable(Table $leagueTable): self
+    {
+        $this->leagueTable = $leagueTable;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $leagueTable->getSeason()) {
+            $leagueTable->setSeason($this);
         }
 
         return $this;

@@ -15,6 +15,10 @@ body {
     font-family: 'BebasNeueRegular';
 }
 
+.table {
+    font-size: 17px;
+}
+
 .header {
     font-size: 50px;
 }

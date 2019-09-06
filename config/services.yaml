@@ -37,3 +37,31 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: admin, label: Season }
         public: true
+
+    admin.table:
+        class: App\Admin\TableAdmin
+        arguments: [~, App\Entity\Table, App\Controller\TableAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Table }
+        public: true
+
+    admin.queue:
+        class: App\Admin\QueueAdmin
+        arguments: [~, App\Entity\Queue, App\Controller\QueueAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Queue }
+        public: true
+
+    admin.match:
+        class: App\Admin\MatchAdmin
+        arguments: [~, App\Entity\Match, App\Controller\MatchAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Match }
+        public: true
+
+    admin.user:
+        class: App\Admin\UserAdmin
+        arguments: [~, App\Entity\User, App\Controller\UserAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: User }
+        public: true

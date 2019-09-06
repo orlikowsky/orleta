@@ -2,12 +2,13 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
             <link rel="stylesheet" href="{{ asset('css/bootstrap-social.css') }}" />
             <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
-            <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/bebas" type="text/css"/>
+{#            <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/bebas" type="text/css"/>#}
         {% endblock %}
     </head>
     <body>
@@ -16,8 +17,10 @@
 
             <div class="row">
                 {% include('login.html.twig') %}
-                {% block body %}
-                {% endblock %}
+                <div class="col-lg-10 col-md-8 col-sm-12">
+                    {% block body %}
+                    {% endblock %}
+                </div>
             </div>
 
             {% include('footer.html.twig') %}

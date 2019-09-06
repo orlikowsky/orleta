@@ -44,6 +44,11 @@ class Queue
      */
     private $matches;
 
+    public function __toString()
+    {
+        return $this->getNumber() . ' kolejka';
+    }
+
     public function __construct()
     {
         $this->matches = new ArrayCollection();

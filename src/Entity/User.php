@@ -46,6 +46,11 @@ class User implements UserInterface
      */
     private $facebookId;
 
+    public function __toString():string
+    {
+        return '';
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -112,7 +117,7 @@ class User implements UserInterface
     /**
      * @return string
      */
-    public function getUserName(): string
+    public function getUserName()
     {
         return $this->userName;
     }
