@@ -4,7 +4,6 @@
 
 {% block body %}
     <h1>Liga typerów</h1>
-    {{ form_start(form) }}
     <div class="col-lg-12 col-md-12 col-sm-12 mb-1" align="right">
         <button class="btn btn-warning">{{ button_label|default('Zapisz typy') }}</button>
     </div>
@@ -18,12 +17,11 @@
                 <th>Gole gości</th>
             </tr>
         </thead>
-        {% for type in form.matchTypes %}
+        {% for type in types %}
             <tr>
-                <td>{{ form_label(type) }}</td>
                 <td></td>
-                <td>{{ form_row(type.goalsHome) }}</td>
-                <td>{{ form_row(type.goalsAway) }}</td>
+                <td><input type="text" id="matches_matchTypes_0_goalsHome" name="matches[matchTypes][0][goalsHome]" required="required" class="form-control"></td>
+                <td><input type="text" id="matches_matchTypes_0_goalsAway" name="matches[matchTypes][0][goalsAway]" required="required" class="form-control"></td>
 
             </tr>
         {% else %}
@@ -33,5 +31,4 @@
         {% endfor %}
         </tbody>
     </table>
-    {{ form_end(form) }}
 {% endblock %}

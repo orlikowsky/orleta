@@ -31,16 +31,8 @@ class MatchTypesController extends AbstractController
         MatchRepository $matchRepository
     ): Response
     {
-        $matches = new Match();
-        foreach ($matchRepository->findAll() as $match) {
-            $matchType = new MatchType();
-            $matchType->setMatchGame($match);
-            $matches->getMatchTypes()->add($matchType);
-            $matches->setHome($match->getHome());
-        }
-
         $form = $this
-            ->createForm(MatchesType::class, $matches)
+            ->createForm(MatchesType::class, new Match())
             ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -48,7 +40,7 @@ class MatchTypesController extends AbstractController
         }
 
         return $this->render('match_types/index.html.twig', [
-            'form' => $form->createView()//wrzucić repo zamiast formularza
+            'types' => $matchRepository->findAll()
         ]);
     }
 
