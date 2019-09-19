@@ -12,13 +12,12 @@ class MatchTypesType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        dump($options);
         $builder->add('goalsAway', TextType::class, [
-            'label' => 'dsadas'
+            'label' => false
         ]);
 
         $builder->add('goalsHome', TextType::class, [
-            'label' => 'dasdsa'
+            'label' => false
         ]);
     }
 

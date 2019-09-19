@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -68,6 +70,10 @@ class Match
      * @ORM\OneToMany(targetEntity="MatchType", mappedBy="matchGame")
      */
     private $matchTypes;
+
+    /**
+     * Match constructor.
+     */
 
     public function __construct()
     {

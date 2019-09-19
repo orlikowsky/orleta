@@ -2,6 +2,9 @@
 
 namespace App\Entity;
 
+use App\Repository\MatchRepository;
+use App\Repository\MatchTypesRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -41,6 +44,20 @@ class MatchType
      * @ORM\Column(type="integer")
      */
     private $goalsAway;
+
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
+
+    /**
+     * MatchType constructor.
+     * @param EntityManagerInterface $entityManager
+     */
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
 
     public function getId(): ?int
     {
@@ -92,6 +109,12 @@ class MatchType
     {
         $this->user = $user;
         return $this;
+    }
+
+    public function getTypeByUser($user) {
+        $matchTypesRepository = $this->entityManager->getRepository(MatchTypesRepository::class);
+
+        return $matchTypesRepository->getTypeByUser($user);
     }
 
 

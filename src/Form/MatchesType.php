@@ -16,6 +16,7 @@ class MatchesType extends AbstractType
             'entry_type' => MatchTypesType::class,
             'entry_options' => ['label' => false],
             'label' => false,
+            'required' => true
         ]);
     }
 

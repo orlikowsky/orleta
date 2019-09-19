@@ -19,32 +19,13 @@ class MatchTypesRepository extends ServiceEntityRepository
         parent::__construct($registry, MatchType::class);
     }
 
-    // /**
-    //  * @return MatchTypes[] Returns an array of MatchTypes objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('m.id', 'ASC')
-            ->setMaxResults(10)
+    public function getTypeByUser($user) {
+        $matchTypes = $this->createQueryBuilder('matchTypes')
+            ->where('matchTypes.user = :user')
+            ->setParameter('user', $user)
             ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+            ->getFirstResult();
 
-    /*
-    public function findOneBySomeField($value): ?MatchTypes
-    {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        return $matchTypes;
     }
-    */
 }

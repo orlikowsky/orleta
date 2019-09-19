@@ -4,15 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Match;
 use App\Entity\MatchType;
-use App\Entity\Queue;
 use App\Form\MatchesType;
 use App\Repository\MatchRepository;
-use App\Repository\MatchTypesRepository;
 use App\Service\MatchTypesService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Exception;
 
 /**
  * @Route("/match/types")
@@ -24,23 +23,44 @@ class MatchTypesController extends AbstractController
      *
      * @param Request $request
      * @param MatchRepository $matchRepository
+     * @param MatchTypesService $matchTypesService
      * @return Response
      */
     public function index(
         Request $request,
-        MatchRepository $matchRepository
+        MatchRepository $matchRepository,
+        MatchTypesService $matchTypesService
     ): Response
     {
+        $matches = new Match();
+        foreach ($matchRepository->findAll() as $match) {
+            $matchType = new MatchType();
+            $matchType->setMatchGame($match);
+            $matchType->setGoalsHome($match->getMatchTypes());
+            $matches->getMatchTypes()->add($matchType);
+            $matches->setHome($match->getHome());
+        }
+
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $form = $this
-            ->createForm(MatchesType::class, new Match())
+            ->createForm(MatchesType::class, $matches)
             ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $matchTypes = $form->getData()->getMatchTypes()->toArray();
+
+            try {
+                $matchTypesService->setTypes($matchTypes, $this->getUser());
+            } catch (Exception $e) {
+                $this->addFlash('notice', $e->getMessage());
+                $this->redirectToRoute('match_types_index');
+            }
 
         }
-
+        $v = $form->createView();
         return $this->render('match_types/index.html.twig', [
-            'types' => $matchRepository->findAll()
+            'form' => $form->createView()
         ]);
     }
 

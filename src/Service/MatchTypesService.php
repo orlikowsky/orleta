@@ -1,14 +1,9 @@
 <?php
 
-
 namespace App\Service;
 
-
-use App\Entity\Match;
 use App\Entity\MatchType;
 use Doctrine\ORM\EntityManagerInterface;
-use GuzzleHttp\Promise\TaskQueue;
-use Symfony\Component\PropertyInfo\Type;
 
 class MatchTypesService
 {
@@ -18,34 +13,28 @@ class MatchTypesService
     private $entityManager;
 
     /**
-     * @var Match
-     */
-    private $matches;
-
-
-//    /**
-//     * MatchTypesService constructor.
-//     * @param EntityManagerInterface $entityManager
-//     */
-//    public function __construct(EntityManagerInterface $entityManager)
-//    {
-//        $this->entityManager = $entityManager;
-//    }
-    /**
      * MatchTypesService constructor.
      * @param EntityManagerInterface $entityManager
-     * @param Match $match
      */
+
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
     }
 
-    public function setTypes(array $matches) {
+    public function setTypes(array $matches, $user) {
 
-//        foreach ($matches as $match) {
-//            $match
-//        }
+        foreach ($matches as $match) {
+            $matchType = new MatchType();
 
+            $matchType
+                ->setUser($user)
+                ->setMatchGame($match->getMatchGame())
+                ->setGoalsHome($match->getGoalsHome())
+                ->setGoalsAway($match->getGoalsAway());
+
+            $this->entityManager->persist($matchType);
+        }
+        $this->entityManager->flush();
     }
 }
