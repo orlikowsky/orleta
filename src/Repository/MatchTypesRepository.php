@@ -18,14 +18,4 @@ class MatchTypesRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, MatchType::class);
     }
-
-    public function getTypeByUser($user) {
-        $matchTypes = $this->createQueryBuilder('matchTypes')
-            ->where('matchTypes.user = :user')
-            ->setParameter('user', $user)
-            ->getQuery()
-            ->getFirstResult();
-
-        return $matchTypes;
-    }
 }

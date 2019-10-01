@@ -45,20 +45,6 @@ class MatchType
      */
     private $goalsAway;
 
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-
-    /**
-     * MatchType constructor.
-     * @param EntityManagerInterface $entityManager
-     */
-    public function __construct(EntityManagerInterface $entityManager)
-    {
-        $this->entityManager = $entityManager;
-    }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -110,12 +96,4 @@ class MatchType
         $this->user = $user;
         return $this;
     }
-
-    public function getTypeByUser($user) {
-        $matchTypesRepository = $this->entityManager->getRepository(MatchTypesRepository::class);
-
-        return $matchTypesRepository->getTypeByUser($user);
-    }
-
-
 }

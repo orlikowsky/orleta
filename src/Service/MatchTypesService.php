@@ -3,6 +3,8 @@
 namespace App\Service;
 
 use App\Entity\MatchType;
+use App\Entity\User;
+use App\Repository\MatchTypesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 class MatchTypesService
@@ -22,10 +24,19 @@ class MatchTypesService
         $this->entityManager = $entityManager;
     }
 
-    public function setTypes(array $matches, $user) {
+    /**
+     * @param array $matches
+     * @param User $user
+     */
+    public function setTypes(array $matches, User $user) {
 
         foreach ($matches as $match) {
-            $matchType = new MatchType();
+            $savedMatchType = $match->getMatchGame()->getMatchTypesByUser($user);
+            if($savedMatchType !== null) {
+                $matchType = $savedMatchType;
+            } else {
+                $matchType = new MatchType();
+            }
 
             $matchType
                 ->setUser($user)
@@ -33,7 +44,9 @@ class MatchTypesService
                 ->setGoalsHome($match->getGoalsHome())
                 ->setGoalsAway($match->getGoalsAway());
 
-            $this->entityManager->persist($matchType);
+            if($savedMatchType === null) {
+                $this->entityManager->persist($matchType);
+            }
         }
         $this->entityManager->flush();
     }

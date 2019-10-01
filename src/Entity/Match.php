@@ -4,9 +4,8 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Criteria;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MatchRepository")
@@ -73,8 +72,8 @@ class Match
 
     /**
      * Match constructor.
+     *
      */
-
     public function __construct()
     {
         $this->matchTypes = new ArrayCollection();
@@ -217,6 +216,22 @@ class Match
     public function getMatchTypes(): Collection
     {
         return $this->matchTypes;
+    }
+
+    /**
+     * @return Collection|MatchType[]
+     */
+    public function getMatchTypesByUser(User $user)
+    {
+        $criteria = Criteria::create()
+            ->andWhere(Criteria::expr()->eq('user', $user));
+
+        $matchType = $this->getMatchTypes()->matching($criteria)->first();
+
+        if($matchType instanceof MatchType) {
+            return $matchType;
+        }
+        return null;
     }
 
     public function addMatchType(MatchType $matchType): self

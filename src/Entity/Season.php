@@ -33,9 +33,15 @@ class Season
      */
     private $leagueTable;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserTable", mappedBy="season")
+     */
+    private $userTables;
+
     public function __construct()
     {
         $this->queues = new ArrayCollection();
+        $this->userTables = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -98,6 +104,37 @@ class Season
         // set the owning side of the relation if necessary
         if ($this !== $leagueTable->getSeason()) {
             $leagueTable->setSeason($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserTable[]
+     */
+    public function getUserTables(): Collection
+    {
+        return $this->userTables;
+    }
+
+    public function addUserTable(UserTable $userTable): self
+    {
+        if (!$this->userTables->contains($userTable)) {
+            $this->userTables[] = $userTable;
+            $userTable->setSeason($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserTable(UserTable $userTable): self
+    {
+        if ($this->userTables->contains($userTable)) {
+            $this->userTables->removeElement($userTable);
+            // set the owning side to null (unless already changed)
+            if ($userTable->getSeason() === $this) {
+                $userTable->setSeason(null);
+            }
         }
 
         return $this;

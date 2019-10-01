@@ -6,7 +6,9 @@ use App\Entity\Match;
 use App\Entity\MatchType;
 use App\Form\MatchesType;
 use App\Repository\MatchRepository;
+use App\Repository\MatchTypesRepository;
 use App\Service\MatchTypesService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,16 +34,21 @@ class MatchTypesController extends AbstractController
         MatchTypesService $matchTypesService
     ): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $matches = new Match();
         foreach ($matchRepository->findAll() as $match) {
+            $matchTypeSaved = $match->getMatchTypesByUser($this->getUser());
+
             $matchType = new MatchType();
             $matchType->setMatchGame($match);
-            $matchType->setGoalsHome($match->getMatchTypes());
-            $matches->getMatchTypes()->add($matchType);
-            $matches->setHome($match->getHome());
-        }
 
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+            if($matchTypeSaved instanceof MatchType) {
+                $matchType->setGoalsHome($matchTypeSaved->getGoalsHome());
+                $matchType->setGoalsAway($matchTypeSaved->getGoalsAway());
+            }
+            $matches->getMatchTypes()->add($matchType);
+        }
 
         $form = $this
             ->createForm(MatchesType::class, $matches)
@@ -58,7 +65,7 @@ class MatchTypesController extends AbstractController
             }
 
         }
-        $v = $form->createView();
+
         return $this->render('match_types/index.html.twig', [
             'form' => $form->createView()
         ]);
