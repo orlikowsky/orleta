@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Match;
 use App\Entity\MatchType;
+use App\Entity\Queue;
 use App\Form\MatchesType;
 use App\Repository\MatchRepository;
 use App\Repository\MatchTypesRepository;
+use App\Repository\QueueRepository;
 use App\Service\MatchTypesService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,33 +23,31 @@ use Exception;
 class MatchTypesController extends AbstractController
 {
     /**
-     * @Route("/", name="match_types_index", methods={"GET", "POST"})
+     * @Route("/{queue}/", name="match_types_index", methods={"GET", "POST"})
      *
      * @param Request $request
      * @param MatchRepository $matchRepository
      * @param MatchTypesService $matchTypesService
+     * @param QueueRepository $queueRepository
+     * @param int $queue
      * @return Response
      */
     public function index(
         Request $request,
         MatchRepository $matchRepository,
-        MatchTypesService $matchTypesService
+        MatchTypesService $matchTypesService,
+        QueueRepository $queueRepository,
+        int $queue
     ): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
-        $matches = new Match();
-        foreach ($matchRepository->findAll() as $match) {
-            $matchTypeSaved = $match->getMatchTypesByUser($this->getUser());
+        $user = $this->getUser();
 
-            $matchType = new MatchType();
-            $matchType->setMatchGame($match);
-
-            if($matchTypeSaved instanceof MatchType) {
-                $matchType->setGoalsHome($matchTypeSaved->getGoalsHome());
-                $matchType->setGoalsAway($matchTypeSaved->getGoalsAway());
-            }
-            $matches->getMatchTypes()->add($matchType);
+        if($queue > 0) {
+            $matches = $matchTypesService->getMatchesFromQueue($queue, $matchRepository, $user);
+        } else {
+            $matches = $matchTypesService->getAllMatches($matchRepository, $user);
         }
 
         $form = $this

@@ -90,7 +90,7 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-        return new RedirectResponse($this->urlGenerator->generate('match_types_index'));
+        return new RedirectResponse($this->urlGenerator->generate('match_types_index', ['queue' => 0]));
     }
 
     protected function getLoginUrl()

@@ -12,14 +12,21 @@
     <table class="table">
         <thead>
             <tr>
+                <th>Kolejka</th>
                 <th>Gospodarze</th>
                 <th>Goście</th>
                 <th>Gole gosp.</th>
                 <th>Gole gości</th>
             </tr>
         </thead>
+        {% set i = 0 %}
         {% for type in form.matchTypes %}
             <tr>
+                {% if loop.index % 8 == 1  %}
+                    <td>{{ type.vars['value'].matchGame.queue }}</td>
+                {% else %}
+                    <td></td>
+                {% endif %}
                 <td>{{ type.vars['value'].matchGame.home }}</td>
                 <td>{{ type.vars['value'].matchGame.away }}</td>
                 <td>{{ form_row(type.goalsHome) }}</td>

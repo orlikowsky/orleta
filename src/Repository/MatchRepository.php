@@ -19,6 +19,19 @@ class MatchRepository extends ServiceEntityRepository
         parent::__construct($registry, Match::class);
     }
 
+    /**
+     * @param int $queue
+     * @return mixed
+     */
+    public function findMatchesByQueue(int $queue) {
+        return $this->createQueryBuilder('matches')
+            ->where('matches.queue = :queue')
+            ->setParameter('queue', $queue)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Match[] Returns an array of Match objects
     //  */
