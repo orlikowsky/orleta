@@ -10,6 +10,7 @@ use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use League\OAuth2\Client\Provider\FacebookUser;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -38,17 +39,32 @@ class FacebookAuthenticator extends SocialAuthenticator
      */
     private $userPasswordEncoder;
 
+    /**
+     * @var UrlGeneratorInterface
+     */
+    private $urlGenerator;
+
+    /**
+     * FacebookAuthenticator constructor.
+     * @param ClientRegistry $clientRegistry
+     * @param EntityManagerInterface $entityManager
+     * @param RouterInterface $router
+     * @param UserPasswordEncoderInterface $userPasswordEncoder
+     * @param UrlGeneratorInterface $urlGenerator
+     */
     public function __construct(
         ClientRegistry $clientRegistry,
         EntityManagerInterface $entityManager,
         RouterInterface $router,
-        UserPasswordEncoderInterface $userPasswordEncoder
+        UserPasswordEncoderInterface $userPasswordEncoder,
+        UrlGeneratorInterface $urlGenerator
     )
     {
         $this->clientRegistry = $clientRegistry;
         $this->entityManager = $entityManager;
         $this->router = $router;
         $this->userPasswordEncoder = $userPasswordEncoder;
+        $this->urlGenerator = $urlGenerator;
     }
 
     /**
@@ -122,9 +138,7 @@ class FacebookAuthenticator extends SocialAuthenticator
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-        $targetUrl = $this->router->generate('app');
-
-        return new RedirectResponse($targetUrl);
+        return new RedirectResponse($this->urlGenerator->generate('match_types_index', ['queue' => 0]));
     }
 
     /**

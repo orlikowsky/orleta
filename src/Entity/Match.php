@@ -219,7 +219,8 @@ class Match
     }
 
     /**
-     * @return Collection|MatchType[]
+     * @param User $user
+     * @return |null
      */
     public function getMatchTypesByUser(User $user)
     {

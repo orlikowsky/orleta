@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -45,6 +46,15 @@ class User implements UserInterface
      * @ORM\Column(type="bigint", nullable=true)
      */
     private $facebookId;
+
+    /**
+     * @return string
+     */
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\MatchType", mappedBy="user")
+     */
+    private $matchTypes;
 
     public function __toString():string
     {
@@ -147,5 +157,13 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection|MatchType[]
+     */
+    public function getMatchTypes(): Collection
+    {
+        return $this->matchTypes;
     }
 }

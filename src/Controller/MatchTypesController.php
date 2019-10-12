@@ -5,10 +5,12 @@ namespace App\Controller;
 use App\Entity\Match;
 use App\Entity\MatchType;
 use App\Entity\Queue;
+use App\Entity\Season;
 use App\Form\MatchesType;
 use App\Repository\MatchRepository;
 use App\Repository\MatchTypesRepository;
 use App\Repository\QueueRepository;
+use App\Repository\SeasonRepository;
 use App\Service\MatchTypesService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,16 +29,18 @@ class MatchTypesController extends AbstractController
      *
      * @param Request $request
      * @param MatchRepository $matchRepository
-     * @param MatchTypesService $matchTypesService
      * @param QueueRepository $queueRepository
+     * @param SeasonRepository $seasonRepository
+     * @param MatchTypesService $matchTypesService
      * @param int $queue
      * @return Response
      */
     public function index(
         Request $request,
         MatchRepository $matchRepository,
-        MatchTypesService $matchTypesService,
         QueueRepository $queueRepository,
+        SeasonRepository $seasonRepository,
+        MatchTypesService $matchTypesService,
         int $queue
     ): Response
     {
@@ -66,8 +70,11 @@ class MatchTypesController extends AbstractController
 
         }
 
+        $queues = $queueRepository->getQueuesBySeason($seasonRepository->findOneByCurrent(1));
+
         return $this->render('match_types/index.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'queues' => $queues
         ]);
     }
 

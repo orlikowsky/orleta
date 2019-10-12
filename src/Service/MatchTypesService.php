@@ -4,7 +4,6 @@ namespace App\Service;
 
 use App\Entity\Match;
 use App\Entity\MatchType;
-use App\Entity\Queue;
 use App\Entity\User;
 use App\Repository\MatchRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -20,7 +19,6 @@ class MatchTypesService
      * MatchTypesService constructor.
      * @param EntityManagerInterface $entityManager
      */
-
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
@@ -30,7 +28,7 @@ class MatchTypesService
      * @param array $matches
      * @param User $user
      */
-    public function setTypes(array $matches, User $user) {
+    public function setTypes(array $matches, User $user): void {
 
         foreach ($matches as $match) {
             $savedMatchType = $match->getMatchGame()->getMatchTypesByUser($user);
@@ -58,17 +56,28 @@ class MatchTypesService
      * @param User $user
      * @return Match
      */
-    public function getAllMatches(MatchRepository $matchRepository, User $user) {
+    public function getAllMatches(MatchRepository $matchRepository, User $user): Match {
         return $this->setMatches($matchRepository->findAll(), $user);
     }
 
-    public function getMatchesFromQueue(int $queue, MatchRepository $matchRepository, User $user) {
+    /**
+     * @param int $queue
+     * @param MatchRepository $matchRepository
+     * @param User $user
+     * @return Match
+     */
+    public function getMatchesFromQueue(int $queue, MatchRepository $matchRepository, User $user): Match {
          $matches = $matchRepository->findMatchesByQueue($queue);
 
          return $this->setMatches($matches, $user);
     }
 
-    private function setMatches(array $savedMatches, User $user)
+    /**
+     * @param array $savedMatches
+     * @param User $user
+     * @return Match
+     */
+    private function setMatches(array $savedMatches, User $user): Match
     {
         $matches = new Match();
 

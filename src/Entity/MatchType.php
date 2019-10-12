@@ -2,9 +2,6 @@
 
 namespace App\Entity;
 
-use App\Repository\MatchRepository;
-use App\Repository\MatchTypesRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

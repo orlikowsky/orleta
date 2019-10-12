@@ -5,9 +5,14 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Criteria;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SeasonRepository")
+ * @ORM\Table(
+ *     name="season",
+ *     uniqueConstraints={@ORM\UniqueConstraint(columns={"current"})}
+ * )
  */
 class Season
 {
@@ -37,6 +42,11 @@ class Season
      * @ORM\OneToMany(targetEntity="App\Entity\UserTable", mappedBy="season")
      */
     private $userTables;
+
+    /**
+     * @ORM\Column(name="current", type="boolean", nullable=true)
+     */
+    private $current;
 
     public function __construct()
     {
@@ -137,6 +147,24 @@ class Season
             }
         }
 
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCurrent()
+    {
+        return $this->current;
+    }
+
+    /**
+     * @param mixed $current
+     * @return Season
+     */
+    public function setCurrent($current)
+    {
+        $this->current = $current;
         return $this;
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Queue;
+use App\Entity\Season;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -19,32 +20,11 @@ class QueueRepository extends ServiceEntityRepository
         parent::__construct($registry, Queue::class);
     }
 
-    // /**
-    //  * @return Queue[] Returns an array of Queue objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('q')
-            ->andWhere('q.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('q.id', 'ASC')
-            ->setMaxResults(10)
+    public function getQueuesBySeason(Season $season) {
+        return $this->createQueryBuilder('queue')
+            ->where('queue.season = :season')
+            ->setParameter('season', $season)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Queue
-    {
-        return $this->createQueryBuilder('q')
-            ->andWhere('q.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
