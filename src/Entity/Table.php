@@ -79,6 +79,11 @@ class Table
     private $match;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\MatchType", mappedBy="winner", cascade={"persist", "remove"})
+     */
+    private $matchTypes;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Match", mappedBy="home", cascade={"persist", "remove"})
      */
     private $homeMatch;
@@ -110,8 +115,6 @@ class Table
         $this->match = $match;
         return $this;
     }
-
-
 
     public function getId(): ?int
     {
@@ -285,6 +288,26 @@ class Table
         $this->awayMatch = $awayMatch;
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getMatchTypes()
+    {
+        return $this->matchTypes;
+    }
+
+    /**
+     * @param mixed $matchTypes
+     * @return Table
+     */
+    public function setMatchTypes($matchTypes)
+    {
+        $this->matchTypes = $matchTypes;
+        return $this;
+    }
+
+
 
 
 }

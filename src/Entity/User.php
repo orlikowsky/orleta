@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -55,6 +56,11 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\MatchType", mappedBy="user")
      */
     private $matchTypes;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserTable", mappedBy="user")
+     */
+    private $userTables;
 
     public function __toString():string
     {
@@ -166,4 +172,21 @@ class User implements UserInterface
     {
         return $this->matchTypes;
     }
+
+    /**
+     * @return Collection|UserTable[]
+     */
+    public function getUserTables(): Collection
+    {
+        return $this->userTables;
+    }
+
+    public function getUserTable() {
+//        $criteria = Criteria::create()
+//            ->andWhere(Criteria::expr()->eq('season', ));
+
+        $this->getUserTables()->matching($criteria);
+    }
+
+
 }

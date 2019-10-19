@@ -19,32 +19,11 @@ class UserTableRepository extends ServiceEntityRepository
         parent::__construct($registry, UserTable::class);
     }
 
-    // /**
-    //  * @return UserTable[] Returns an array of UserTable objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
+    public function getTable() {
+        return $this->createQueryBuilder('table')
+            ->orderBy('table.points', 'DESC')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?UserTable
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liga typerów - Tabela{% endblock %}
+
+{% block body %}
+    <h1>Tabela</h1>
+    <table class="table">
+        <thead class="thead-light">
+            <th>Miejsce</th>
+            <th>Gracz</th>
+            <th>Punkty</th>
+        </thead>
+        <tbody>
+        {% for t in table %}
+            <tr>
+                <td></td>
+                <td>{{ t.getUser.getUserName }}</td>
+                <td>{{ t.getPoints }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+{% endblock %}

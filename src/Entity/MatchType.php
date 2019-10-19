@@ -42,6 +42,12 @@ class MatchType
      */
     private $goalsAway;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Table", inversedBy="matchTypes")
+     * @ORM\JoinColumn(name="winner", nullable=true)
+     */
+    private $winner;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -93,4 +99,24 @@ class MatchType
         $this->user = $user;
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getWinner()
+    {
+        return $this->winner;
+    }
+
+    /**
+     * @param mixed $winner
+     * @return MatchType
+     */
+    public function setWinner($winner)
+    {
+        $this->winner = $winner;
+        return $this;
+    }
+
+
 }

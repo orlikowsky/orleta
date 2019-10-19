@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Entity\Match;
 use App\Entity\MatchType;
+use App\Entity\Table;
 use App\Entity\User;
 use App\Repository\MatchRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -25,12 +26,13 @@ class MatchTypesService
     }
 
     /**
-     * @param array $matches
+     * @param array $matchTypes
      * @param User $user
      */
-    public function setTypes(array $matches, User $user): void {
+    public function setTypes(array $matchTypes, User $user): void {
 
-        foreach ($matches as $match) {
+        // @todo popraw ten zapis
+        foreach ($matchTypes as $match) {
             $savedMatchType = $match->getMatchGame()->getMatchTypesByUser($user);
             if($savedMatchType !== null) {
                 $matchType = $savedMatchType;
@@ -42,13 +44,25 @@ class MatchTypesService
                 ->setUser($user)
                 ->setMatchGame($match->getMatchGame())
                 ->setGoalsHome($match->getGoalsHome())
-                ->setGoalsAway($match->getGoalsAway());
+                ->setGoalsAway($match->getGoalsAway())
+                ->setWinner($this->setWinner($match));
 
             if($savedMatchType === null) {
                 $this->entityManager->persist($matchType);
             }
+            $this->entityManager->flush();
         }
-        $this->entityManager->flush();
+    }
+
+    function setWinner(MatchType $match): ?Table {
+
+        if($match->getGoalsHome() > $match->getGoalsAway()) {
+            return $match->getMatchGame()->getHome();
+        } elseif ($match->getGoalsHome() < $match->getGoalsAway()) {
+            return $match->getMatchGame()->getAway();
+        }
+
+        return null;
     }
 
     /**
@@ -57,7 +71,7 @@ class MatchTypesService
      * @return Match
      */
     public function getAllMatches(MatchRepository $matchRepository, User $user): Match {
-        return $this->setMatches($matchRepository->findAll(), $user);
+        return $this->setMatchesInForm($matchRepository->findAll(), $user);
     }
 
     /**
@@ -69,7 +83,7 @@ class MatchTypesService
     public function getMatchesFromQueue(int $queue, MatchRepository $matchRepository, User $user): Match {
          $matches = $matchRepository->findMatchesByQueue($queue);
 
-         return $this->setMatches($matches, $user);
+         return $this->setMatchesInForm($matches, $user);
     }
 
     /**
@@ -77,7 +91,7 @@ class MatchTypesService
      * @param User $user
      * @return Match
      */
-    private function setMatches(array $savedMatches, User $user): Match
+    private function setMatchesInForm(array $savedMatches, User $user): Match
     {
         $matches = new Match();
 
