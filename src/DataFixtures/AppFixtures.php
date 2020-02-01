@@ -8,8 +8,6 @@ use App\Entity\Season;
 use App\Entity\Table;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityManagerInterface;
 use DateTime;
 
 class AppFixtures extends Fixture

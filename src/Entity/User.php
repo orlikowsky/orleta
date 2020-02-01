@@ -180,13 +180,4 @@ class User implements UserInterface
     {
         return $this->userTables;
     }
-
-    public function getUserTable() {
-//        $criteria = Criteria::create()
-//            ->andWhere(Criteria::expr()->eq('season', ));
-
-        $this->getUserTables()->matching($criteria);
-    }
-
-
 }

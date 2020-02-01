@@ -54,6 +54,11 @@ class Season
         $this->userTables = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->getSeason();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
