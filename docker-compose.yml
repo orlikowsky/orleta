@@ -14,6 +14,7 @@ services:
           - ./phpdocker/orleta.key:/etc/nginx/ssl/orleta.key
       ports:
        - "80:80"
+       - "443:443"
 
     php-fpm:
       image: php-fpm:7.4
