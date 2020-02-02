@@ -14,7 +14,7 @@ class MatchTypesService
     /**
      * @var EntityManagerInterface
      */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     /**
      * MatchTypesService constructor.

@@ -13,12 +13,14 @@ use App\Repository\QueueRepository;
 use App\Repository\SeasonRepository;
 use App\Repository\UserTableRepository;
 use App\Service\MatchTypesService;
+use App\Service\UserService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Exception;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/typer")
@@ -33,6 +35,8 @@ class MatchTypesController extends AbstractController
      * @param QueueRepository $queueRepository
      * @param SeasonRepository $seasonRepository
      * @param MatchTypesService $matchTypesService
+     * @param UserService $userService
+     * @param UserPasswordEncoderInterface $userPasswordEncoder
      * @param int $queue
      * @return Response
      */
@@ -42,12 +46,18 @@ class MatchTypesController extends AbstractController
         QueueRepository $queueRepository,
         SeasonRepository $seasonRepository,
         MatchTypesService $matchTypesService,
+        UserService $userService,
+        UserPasswordEncoderInterface $userPasswordEncoder,
         int $queue
     ): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         $user = $this->getUser();
+
+        if(!$userService->checkFbPassword($user, $userPasswordEncoder)) {
+            return $this->redirectToRoute('app_change_password', ['facebook' => 1]);
+        }
 
         if($queue > 0) {
             $matches = $matchTypesService->getMatchesFromQueue($queue, $matchRepository, $user);
@@ -66,7 +76,6 @@ class MatchTypesController extends AbstractController
                 $matchTypesService->setTypes($matchTypes, $this->getUser());
             } catch (Exception $e) {
                 $this->addFlash('notice', $e->getMessage());
-                $this->redirectToRoute('match_types_index');
             }
 
         }

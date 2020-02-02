@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liga typerów{% endblock %}
+
+{% block body %}
+    {{ form_start(form) }}
+        <div class="form-group p-2 col-5">
+            {{ form_row(form.userName, {'errors': false}) }}
+            {{ form_errors(form.userName) }}
+        </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 mb-1">
+        <button class="btn btn-warning">{{ button_label|default('Zmień nazwę usera') }}</button>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

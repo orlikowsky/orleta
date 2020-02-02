@@ -13,7 +13,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/data-fixtures" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/dbal" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/doctrine-bundle" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/doctrine-cache-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/doctrine-fixtures-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/doctrine-migrations-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/event-manager" />
@@ -27,7 +26,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/easycorp/easy-log-handler" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/egulias/email-validator" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/fig/link-util" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/friendsofsymfony/user-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/guzzlehttp/guzzle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/guzzlehttp/promises" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/guzzlehttp/psr7" />
@@ -35,6 +33,9 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/knplabs/knp-menu" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/knplabs/knp-menu-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/knpuniversity/oauth2-client-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/laminas/laminas-code" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/laminas/laminas-eventmanager" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/laminas/laminas-zendframework-bridge" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/league/oauth2-client" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/league/oauth2-facebook" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/monolog/monolog" />
@@ -133,9 +134,8 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/twbs/bootstrap" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/twig/extensions" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/twig/twig" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/webimpress/safe-writer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/webmozart/assert" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-code" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-eventmanager" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

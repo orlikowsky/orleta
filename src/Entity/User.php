@@ -49,10 +49,6 @@ class User implements UserInterface
     private $facebookId;
 
     /**
-     * @return string
-     */
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\MatchType", mappedBy="user")
      */
     private $matchTypes;
@@ -61,6 +57,11 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\UserTable", mappedBy="user")
      */
     private $userTables;
+
+    /**
+     * @var string $newPassword;
+     */
+    private $newPassword;
 
     public function __toString():string
     {
@@ -179,5 +180,23 @@ class User implements UserInterface
     public function getUserTables(): Collection
     {
         return $this->userTables;
+    }
+
+    /**
+     * @param string $newPassword
+     * @return UserInterface
+     */
+    public function setNewPassword(string $newPassword): UserInterface
+    {
+        $this->setPassword($newPassword);
+        return $this;
+    }
+
+    /**
+     * @return UserInterface
+     */
+    public function getNewPassword()
+    {
+        return $this->getPassword();
     }
 }
