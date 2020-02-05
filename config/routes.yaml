@@ -1,3 +1,6 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+index:
+    path: /
+    controller: FOS\UserBundle\Controller\SecurityController::loginAction
+
+fos_user:
+  resource: "@FOSUserBundle/Resources/config/routing/all.xml"

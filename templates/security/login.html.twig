@@ -1,1 +1,37 @@
+<form action="{{ path("fos_user_security_check") }}" method="post">
+    {% if csrf_token is defined %}
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+    {% endif %}
+
+    <div class="form-group pt-2">
+        <input type="email" name="_username" id="inputEmail" class="form-control" placeholder="Email"
+               required="required" autocomplete="username">
+    </div>
+    <div class="form-group pt-2">
+        <input type="password" id="password" name="_password" required="required" autocomplete="current-password"
+               class="form-control" placeholder="Hasło" required>
+    </div>
+    <div class="form-group pt-2">
+        <button class="btn btn-lg btn-warning loginButton" type="submit">
+            Zaloguj
+        </button>
+    </div>
+
+    <label>Zapamiętaj</label>
+    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+
+</form>
+<div class="form-group pt-2">
+    <a class="btn btn-lg btn-warning loginButton" href="{{ path('app_registration') }}">
+        Zarejestruj
+    </a>
+</div>
+<div class="form-group pt-2">
+    <a class="btn btn-lg btn-facebook loginButton" href="{{ path('connect_facebook_start') }}">
+        Facebook login
+    </a>
+</div>
+
+
+
 

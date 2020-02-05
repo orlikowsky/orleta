@@ -3,45 +3,22 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Security\Core\User\UserInterface;
+use FOS\UserBundle\Model\User as BaseUser;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
-class User implements UserInterface
+class User extends BaseUser
 {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
-
-    /**
-     * @ORM\Column(type="string", length=180, unique=true)
-     */
-    private $email;
-
-    /**
-     * @ORM\Column(type="json")
-     */
-    private $roles = [];
-
-    /**
-     * @var string The hashed password
-     * @ORM\Column(type="string")
-     */
-    private $password;
-
-    /**
-     * @var string
-     * @ORM\Column(name="user_name", type="string")
-     */
-    private $userName;
+    protected $id;
 
     /**
      * @ORM\Column(type="bigint", nullable=true)
@@ -78,7 +55,7 @@ class User implements UserInterface
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail($email): self
     {
         $this->email = $email;
 
@@ -124,28 +101,10 @@ class User implements UserInterface
         return (string) $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword($password): self
     {
         $this->password = $password;
 
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getUserName()
-    {
-        return $this->userName;
-    }
-
-    /**
-     * @param string $userName
-     * @return User
-     */
-    public function setUserName(string $userName): User
-    {
-        $this->userName = $userName;
         return $this;
     }
 
@@ -184,19 +143,29 @@ class User implements UserInterface
 
     /**
      * @param string $newPassword
-     * @return UserInterface
+     * @return User
      */
-    public function setNewPassword(string $newPassword): UserInterface
+    public function setNewPassword($newPassword): User
     {
         $this->setPassword($newPassword);
         return $this;
     }
 
     /**
-     * @return UserInterface
+     * @return string
      */
     public function getNewPassword()
     {
         return $this->getPassword();
     }
+
+     /**
+     * @return string
+     */
+    public function getRepeatedPlainPassword()
+    {
+        return $this->getPassword();
+    }
+
+
 }

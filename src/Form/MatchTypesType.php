@@ -4,7 +4,9 @@ namespace App\Form;
 
 use App\Entity\MatchType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -12,16 +14,22 @@ class MatchTypesType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add('goalsAway', TextType::class, [
+        $builder->add('goalsAway', IntegerType::class, [
+            'attr' => [
+                'min' => 0
+            ],
             'label' => false
         ]);
 
-        $builder->add('goalsHome', TextType::class, [
+        $builder->add('goalsHome', IntegerType::class, [
+            'attr' => [
+                'min' => 0
+            ],
             'label' => false
         ]);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => MatchType::class

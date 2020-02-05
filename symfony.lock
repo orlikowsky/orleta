@@ -111,6 +111,12 @@
     "fig/link-util": {
         "version": "1.0.0"
     },
+    "fortawesome/font-awesome": {
+        "version": "5.12.1"
+    },
+    "friendsofsymfony/user-bundle": {
+        "version": "v2.1.2"
+    },
     "guzzlehttp/guzzle": {
         "version": "6.3.3"
     },

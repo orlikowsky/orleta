@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Admin;
 
+use App\Entity\Table;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -44,12 +45,27 @@ final class MatchAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper): void
     {
         $formMapper
-            ->add('id')
-            ->add('scoreHome')
-            ->add('scoreAway')
-            ->add('goalsHome')
-            ->add('goalsAway')
-            ;
+            ->add('home',null, [
+                'label' => 'Gospodarze'
+            ])
+            ->add('away',null, [
+                'label' => 'Goście'
+            ])
+            ->add('scoreHome', null, [
+                'label' => 'Gole gości'
+            ])
+            ->add('scoreAway', null, [
+                'label' => 'Gole gospodarzy'
+            ])
+            ->add('goalsHome', null, [
+                'label' => ''
+            ])
+            ->add('goalsAway', null, [
+                'label' => ''
+            ])
+            ->add('queue', null, [
+                'label' => ''
+            ]);
     }
 
     protected function configureShowFields(ShowMapper $showMapper): void

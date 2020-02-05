@@ -8,6 +8,7 @@
             <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
             <link rel="stylesheet" href="{{ asset('css/bootstrap-social.css') }}" />
             <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+            <link rel="stylesheet" href="{{ asset('bundles/sonatacore/vendor/components-font-awesome/css/font-awesome.min.css') }}" />
             <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/bebas" type="text/css"/>
         {% endblock %}
     </head>
@@ -16,12 +17,10 @@
             {% include('header.html.twig') %}
 
             <div class="row">
-                {% include('login.html.twig') %}
+                {% include('left_column.html.twig') %}
                 <div class="col-lg-10 col-md-8 col-sm-12">
                     {% for message in app.flashes('notice') %}
-
                                 {{ message }}
-
                     {% endfor %}
                     {% block body %}
                     {% endblock %}

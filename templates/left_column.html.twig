@@ -1,0 +1,24 @@
+<div class="col-lg-2 col-md-4 col-sm-6 loginBar">
+    {% if app.user %}
+        <div class="col-12 m-2">
+            Jesteś zalogowany jako <span class="text-warning">{{ app.user.username }}</span>
+        </div>
+        <div class="col-12 m-2">
+            <a class="btn-sm btn-warning" href="{{ path('match_types_index', {'queue': 0}) }}">Obstawiaj mecze</a>
+        </div>
+        <div class="col-12 m-2">
+            <a class="btn-sm btn-warning" href="{{ path('match_types_table') }}">Tabela typerów</a>
+        </div>
+        <div class="col-12 m-2">
+            <a class="btn-sm btn-warning" href="{{ path('app_change_password', {'facebook': 0}) }}">Zmień hasło</a>
+        </div>
+        <div class="col-12 m-2">
+            <a class="btn-sm btn-warning" href="{{ path('app_change_user_name') }}">Zmień nazwę usera</a>
+        </div>
+        <div class="col-12 m-2">
+            <a class="btn-sm btn-warning" href="{{ path('app_logout') }}">Wyloguj</a>
+        </div>
+    {% else %}
+        {{ include('security/login.html.twig') }}
+    {% endif %}
+</div>
