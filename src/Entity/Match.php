@@ -79,6 +79,11 @@ class Match
         $this->matchTypes = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return 'Mecz '.$this->getHome() .' - '. $this->getAway();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

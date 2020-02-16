@@ -58,10 +58,3 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: admin, label: Match }
         public: true
-
-    admin.user:
-        class: App\Admin\UserAdmin
-        arguments: [~, App\Entity\User, App\Controller\UserAdminController]
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: User }
-        public: true

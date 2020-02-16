@@ -13,32 +13,44 @@ use Sonata\AdminBundle\Show\ShowMapper;
 
 final class MatchAdmin extends AbstractAdmin
 {
-
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
+    public function configure()
     {
-        $datagridMapper
-            ->add('id')
-            ->add('scoreHome')
-            ->add('scoreAway')
-            ->add('goalsHome')
-            ->add('goalsAway')
-            ;
+        parent::configure();
+        $this->classnameLabel = 'Mecz';
+        $this->setLabel('Mecz');
     }
 
     protected function configureListFields(ListMapper $listMapper): void
     {
         $listMapper
-            ->add('id')
-            ->add('scoreHome')
-            ->add('scoreAway')
-            ->add('goalsHome')
-            ->add('goalsAway')
+            ->add('id', null, [
+                'label' => 'Id'
+            ])
+            ->add('home', null, [
+                'label' => 'Gospodarze'
+            ])
+            ->add('away', null, [
+                'label' => 'Goście'
+            ])
+            ->add('scoreHome', null, [
+                'label' => 'Punkty gospodarzey'
+            ])
+            ->add('scoreAway', null, [
+                'label' => 'Punkty gości'
+            ])
+            ->add('goalsHome', null, [
+                'label' => 'Gole gospodarzy'
+            ])
+            ->add('goalsAway', null, [
+                'label' => 'Gole gości'
+            ])
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],
                     'edit' => [],
                     'delete' => [],
                 ],
+                'label' => 'Pokaż / Edytuj / Usuń '
             ]);
     }
 
