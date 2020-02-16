@@ -4,6 +4,8 @@
 version: "3.1"
 services:
     webserver:
+      environment:
+        TZ: "Europe/Warsaw"
       image: nginx:alpine
       container_name: docker-symfony4-webserver
       working_dir: /application
@@ -17,6 +19,8 @@ services:
        - "443:443"
 
     php-fpm:
+      environment:
+        TZ: "Europe/Warsaw"
       image: php-fpm:7.4
       build: phpdocker/php-fpm
       container_name: docker-symfony4-php-fpm
