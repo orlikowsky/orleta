@@ -12,6 +12,12 @@ use Sonata\AdminBundle\Show\ShowMapper;
 
 final class SeasonAdmin extends AbstractAdmin
 {
+    public function configure()
+    {
+        parent::configure();
+        $this->classnameLabel = 'Sezon';
+        $this->setLabel('Sezon');
+    }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
     {
@@ -25,7 +31,9 @@ final class SeasonAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('id')
-            ->add('season')
+            ->add('season', null, [
+                'label' => 'Sezon'
+            ])
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],
@@ -38,16 +46,24 @@ final class SeasonAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper): void
     {
         $formMapper
-            ->add('id')
-            ->add('season')
+            ->add('id', null, [
+                'label' => 'Id'
+            ])
+            ->add('season', null, [
+                'label' => 'Sezon'
+            ])
             ;
     }
 
     protected function configureShowFields(ShowMapper $showMapper): void
     {
         $showMapper
-            ->add('id')
-            ->add('season')
+            ->add('id', null, [
+                'label' => 'Id'
+            ])
+            ->add('season', null, [
+                'label' => 'Sezon'
+            ])
             ;
     }
 }

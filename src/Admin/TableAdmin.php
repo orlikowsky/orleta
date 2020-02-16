@@ -12,6 +12,12 @@ use Sonata\AdminBundle\Show\ShowMapper;
 
 final class TableAdmin extends AbstractAdmin
 {
+    public function configure()
+    {
+        parent::configure();
+        $this->classnameLabel = 'Tabela';
+        $this->setLabel('Tabela');
+    }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
     {

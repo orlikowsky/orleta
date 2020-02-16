@@ -9,18 +9,33 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 final class QueueAdmin extends AbstractAdmin
 {
+    public function configure()
+    {
+        parent::configure();
+        $this->classnameLabel = 'Kolejka';
+        $this->setLabel('Kolejka');
+    }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
     {
         $datagridMapper
             //->add('id')
-            ->add('season')
-            ->add('number')
-            ->add('timeStart')
-            ->add('timeEnd')
+            ->add('season', null, [
+                'label' => 'Sezon'
+            ])
+            ->add('number', null, [
+                'label' => 'Kolejka',
+            ])
+            ->add('timeStart', null, [
+                'label' => 'Data i godzina rozpoczęcia kolejki'
+            ])
+            ->add('timeEnd', null, [
+                'label' => 'Data i godzina zakończenia kolejki'
+            ])
             ;
     }
 
@@ -28,10 +43,18 @@ final class QueueAdmin extends AbstractAdmin
     {
         $listMapper
             //->add('id')
-            ->add('season')
-            ->add('number')
-            ->add('timeStart')
-            ->add('timeEnd')
+            ->add('season', null, [
+                'label' => 'Sezon'
+            ])
+            ->add('number', null, [
+                'label' => 'Kolejka'
+            ])
+            ->add('timeStart', null, [
+                'label' => 'Data i godzina rozpoczęcia kolejki'
+            ])
+            ->add('timeEnd', null, [
+                'label' => 'Data i godzina zakończenia kolejki'
+            ])
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],
@@ -45,10 +68,22 @@ final class QueueAdmin extends AbstractAdmin
     {
         $formMapper
             //->add('id')
-            ->add('season')
-            ->add('number')
-            ->add('timeStart')
-            ->add('timeEnd')
+            ->add('season', null, [
+                'label' => 'Sezon'
+            ])
+            ->add('number', IntegerType::class, [
+                'label' => 'Kolejka',
+                'attr' => [
+                    'min' => 1,
+                    'max' => 30
+                ]
+            ])
+            ->add('timeStart', null, [
+                'label' => 'Data i godzina rozpoczęcia kolejki',
+            ])
+            ->add('timeEnd', null, [
+                'label' => 'Data i godzina zakończenia kolejki'
+            ])
             ;
     }
 
@@ -56,10 +91,18 @@ final class QueueAdmin extends AbstractAdmin
     {
         $showMapper
             //->add('id')
-            ->add('season')
-            ->add('number')
-            ->add('timeStart')
-            ->add('timeEnd')
+            ->add('season', null, [
+                'label' => 'Sezon'
+            ])
+            ->add('number', null, [
+                'label' => 'Kolejka'
+            ])
+            ->add('timeStart', null, [
+                'label' => 'Data i godzina rozpoczęcia kolejki',
+            ])
+            ->add('timeEnd', null, [
+                'label' => 'Data i godzina zakończenia kolejki'
+            ])
             ;
     }
 }
