@@ -2,14 +2,21 @@ fos_user:
   db_driver: orm
   firewall_name: main
   user_class: App\Entity\User
+  service:
+    mailer: fos_user.mailer.twig_swift
   from_email:
-    address: klub@orletalukow.pl
-    sender_name: Orlęta Łuków
+    address:        noreply@orletalukow.pl
+    sender_name:    Orlęta Łuków
   registration:
     confirmation:
       enabled: true
+      from_email:
+        address:        noreply@orletalukow.pl
+        sender_name:    Orlęta Łuków
+      template:   'registration/email.txt.twig'
+
   resetting:
     email:
       from_email:
-        address:        klub@orletalukow.pl
+        address:        noreply@orletalukow.pl
         sender_name:    Orlęta Łuków
