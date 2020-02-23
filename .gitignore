@@ -1,17 +1,11 @@
-
 ###> symfony/framework-bundle ###
-/.idea
-/.env
+/.env.local
 /.env.local.php
 /.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
 /var/
 /vendor/
-/.htpasswd
-/phpdocker/orleta.crt
-/phpdocker/orleta.key
-/phpdocker/orleta_bundle.crt
-
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###

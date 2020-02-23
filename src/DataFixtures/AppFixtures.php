@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Match;
+use App\Entity\PageType;
 use App\Entity\Queue;
 use App\Entity\Season;
 use App\Entity\Table;
@@ -29,11 +30,28 @@ class AppFixtures extends Fixture
         $manager->flush();
         $this->queue($season, $manager);
         $manager->flush();
+        $this->pageType($manager);
+        $manager->flush();
+    }
+
+    /**
+     * @param ObjectManager $manager
+     */
+    private function pageType($manager) {
+        $pageTypes = ['news', 'page'];
+
+        foreach ($pageTypes as $pageType) {
+            $newPageType = new PageType();
+            $newPageType->setType($pageType);
+            $manager->persist($newPageType);
+        }
     }
 
     private function season(): Season
     {
-        return (new Season())->setSeason('2019/2020');
+        return (new Season())
+            ->setSeason('2019/2020')
+            ->setCurrent(1);
     }
 
     private function queue(Season $season, ObjectManager $manager)

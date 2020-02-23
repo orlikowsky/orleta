@@ -108,9 +108,6 @@
     "egulias/email-validator": {
         "version": "2.1.11"
     },
-    "fig/link-util": {
-        "version": "1.0.0"
-    },
     "fortawesome/font-awesome": {
         "version": "5.12.1"
     },
@@ -318,6 +315,9 @@
     "symfony/dotenv": {
         "version": "v4.3.3"
     },
+    "symfony/error-handler": {
+        "version": "v4.4.4"
+    },
     "symfony/event-dispatcher": {
         "version": "v4.3.3"
     },
@@ -349,18 +349,19 @@
         "version": "v4.3.3"
     },
     "symfony/framework-bundle": {
-        "version": "4.2",
+        "version": "4.4",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "master",
-            "version": "4.2",
-            "ref": "61ad963f28c091b8bb9449507654b9c7d8bbb53c"
+            "version": "4.4",
+            "ref": "23ecaccc551fe2f74baf613811ae529eb07762fa"
         },
         "files": [
             "config/bootstrap.php",
             "config/packages/cache.yaml",
             "config/packages/framework.yaml",
             "config/packages/test/framework.yaml",
+            "config/routes/dev/framework.yaml",
             "config/services.yaml",
             "public/index.php",
             "src/Controller/.gitignore",

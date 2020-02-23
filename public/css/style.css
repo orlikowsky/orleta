@@ -52,7 +52,13 @@ body {
     line-height: 1.0;
 }
 
-
+.modal-content {
+    position: fixed;
+    bottom: 5%;
+    left: 25%;
+    display: none;
+    z-index: 1;
+}
 
 @media screen and  (min-width: 768px) and (max-width: 992px) {
     .logo {
