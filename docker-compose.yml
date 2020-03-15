@@ -11,6 +11,8 @@ services:
           - ./phpdocker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
           - ./phpdocker/orleta.crt:/etc/nginx/ssl/orleta.crt
           - ./phpdocker/orleta.key:/etc/nginx/ssl/orleta.key
+          - ./phpdocker/certificate_sz.key:/etc/nginx/ssl/certificate_sz.key
+          - ./phpdocker/private_sz.key:/etc/nginx/ssl/private_sz.key
       ports:
        - "80:80"
        - "443:443"
