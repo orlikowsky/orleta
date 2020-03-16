@@ -13,6 +13,7 @@ services:
           - ./phpdocker/orleta.key:/etc/nginx/ssl/orleta.key
           - ./phpdocker/certificate_sz.crt:/etc/nginx/ssl/certificate_sz.crt
           - ./phpdocker/private_sz.key:/etc/nginx/ssl/private_sz.key
+          - ./phpdocker/chain.pem:/etc/nginx/ssl/chain.pem
       ports:
        - "80:80"
        - "443:443"
