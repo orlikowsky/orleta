@@ -112,6 +112,7 @@ class FacebookAuthenticator extends SocialAuthenticator
         }
         $user->setEmail($facebookUser->getEmail());
         $user->setFacebookId($facebookUser->getId());
+        $user->setEnabled(true);
         $user->setUserName(sprintf("%s %s", $facebookUser->getFirstName(), $facebookUser->getLastName()));
         $user->setPassword($this->userPasswordEncoder->encodePassword($user, '!QAZFDFH%$YHRW%&^HGF#FDMN'));
         $this->entityManager->persist($user);
